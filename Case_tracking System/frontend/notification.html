@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<?php
+
+
+include('connect.php');
+
+
+session_start();
+$Car_Number=$_SESSION['CarNumber'];
+
+echo "".$Car_Number."";
+
+//$Car_Number = $_POST["Car_Number"];
+ $today=date("Y-m-d");
+
+
+
+$sql = "SELECT Case_ID, Case_Date,Deadline FROM case_details where case_details.Car_Number like $Car_Number ";
+
+$result = $con->query($sql);
+
+if ($result->num_rows > 0) {
+    while($row = $result->fetch_assoc())
+
+     {
+          
+         $date1=date_create($row["Deadline"].""); 
+
+          $date2=date_create($today."");
+
+    	$dif = date_diff($date2,$date1);
+
+    //  if ($dif<=10) {
+      	
+        echo "string";
+      	echo $dif->format("%a days");
+
+    //  }
+
+    	
+
+        
+    }
+    
+} 
+
+
+$con->close();
+?>
+
+
+
+<h1><a href="User.html">Back</a></h1>
+
+
+
+
+
+</body>
+</html>
